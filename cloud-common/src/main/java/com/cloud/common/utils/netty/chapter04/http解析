@@ -1,0 +1,33 @@
+HTTP协议：
+1、http协议的url
+    http://host[:port][abs_path]
+    其中http表示要通过http协议来定位网络资源；host表示合法的internet主机域名或者ip地址；port指定一个端口号；abs_path指定请求资源的uri
+2、http请求消息 httprequest
+    (1):http请求行
+        格式 Method Request-URI HTTP-Verison CRLF
+        Method:表示请求方法
+        Request-URI:请求的资源
+        HTTP-Verison:表示请求的http协议版本
+        CRLF: 表示回车和换行
+    (2):http消息头
+        Accept: text/html
+        Accept-Encoding: gzip, deflate, br
+        Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
+        Connection: keep-alive
+        Cookie:
+        Host: github.com
+        Referer: https://github.com/testGitHubFrist/spring-cloud
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.109 Safari/537.36
+        X-Requested-With: XMLHttpRequest
+    (3):http请求正文
+ 3、http相应消息 httpResponse
+    (1):状态行
+        格式 http-verison status-code reason-phrase CRLF
+        status-code:
+            1xx: 指示消息。表示请求已接收，继续处理
+            2xx: 成功。表示请求成功接收、理解、接受
+            3xx: 重定向。要完成请求必须进行更进一步的操作
+            4xx: 客户端错误。请求有语法错误或请求无法实现
+            5xx: 服务器端错误。服务器未能处理请求
+    (2):消息报头
+    (3):响应正文
