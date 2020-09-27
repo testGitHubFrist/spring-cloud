@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.provider.mapper.OtaRateplanMapper">
+    <resultMap id="BaseResultMap" type="com.cloud.entity.dbo.OtaRateplanDBO">
+        <!--代码生成器生成内容-->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="supplier_code" jdbcType="INTEGER" property="supplierCode"/>
+        <result column="group_key" jdbcType="VARCHAR" property="groupKey"/>
+        <result column="elong_hotel_id" jdbcType="VARCHAR" property="elongHotelId"/>
+        <result column="elong_rateplan_id" jdbcType="INTEGER" property="elongRateplanId"/>
+        <result column="supplier_hotel_id" jdbcType="VARCHAR" property="supplierHotelId"/>
+        <result column="supplier_rateplan_id" jdbcType="VARCHAR" property="supplierRateplanId"/>
+        <result column="enable" jdbcType="INTEGER" property="enable"/>
+        <result column="operator" jdbcType="VARCHAR" property="operator"/>
+        <result column="operate_date" jdbcType="TIMESTAMP" property="operateDate"/>
+        <result column="_timestamp" jdbcType="TIMESTAMP" property="timestamp"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--代码生成器生成内容-->
+        id, supplier_code, group_key, elong_hotel_id, elong_rateplan_id, supplier_hotel_id,
+        supplier_rateplan_id, enable, operator, operate_date, _timestamp
+    </sql>
+    <insert id="insert" parameterType="com.cloud.entity.dbo.OtaRateplanDBO">
+        <!--代码生成器生成内容-->
+        insert into ota_rateplan (id, supplier_code, group_key,
+        elong_hotel_id, elong_rateplan_id, supplier_hotel_id,
+        supplier_rateplan_id, enable, operator,
+        operate_date)
+        values (#{id,jdbcType=INTEGER}, #{supplierCode,jdbcType=INTEGER}, #{groupKey,jdbcType=VARCHAR},
+        #{elongHotelId,jdbcType=VARCHAR}, #{elongRateplanId,jdbcType=INTEGER}, #{supplierHotelId,jdbcType=VARCHAR},
+        #{supplierRateplanId,jdbcType=VARCHAR}, #{enable,jdbcType=INTEGER}, #{operator,jdbcType=VARCHAR},
+        #{operateDate,jdbcType=TIMESTAMP})
+    </insert>
+    <select id="getRateplanBySupplierCode" resultMap="BaseResultMap">
+    select *
+    from ota_rateplan
+    where supplier_code=#{supplierCode}  and enable=1;
+  </select>
+    <select id="getListBySupplierHotelId" resultMap="BaseResultMap">
+    select *
+    from ota_rateplan
+    where supplier_code=#{supplierCode}
+      and supplier_hotel_id=#{supplierHotelId}
+      and elong_hotel_id =#{elongHotelId}
+      and enable=1;
+  </select>
+
+    <update id="updateStatusById">
+        update ota_rateplan set enable=#{enable},operator=#{operator},operate_date=now()
+        where enable!=#{enable} and id in
+        <foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+
+    <!--唯一性校验-->
+    <select id="getOtaRateplanCount" parameterType="java.util.Map" resultType="int">
+    select count(1)
+    from ota_rateplan
+    where supplier_code=#{supplierCode} and supplier_hotel_id=#{supplierHotelId} and enable=1
+    and group_key =#{groupKey};
+  </select>
+
+
+    <update id="updateOtaRateplanStatusByProduct"
+            parameterType="com.cloud.entity.dbo.OtaRateplanDBO">
+        update ota_rateplan set enable=#{enable},operator=#{operator},operate_date=now()
+        where
+        supplier_code=#{supplierCode} and
+        supplier_hotel_id=#{supplierHotelId} and
+        supplier_rateplan_id=#{supplierRateplanId}
+    </update>
+</mapper>
