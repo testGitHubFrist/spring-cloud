@@ -23,6 +23,11 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.cloud</groupId>
+            <artifactId>cloud-entity</artifactId>
+            <version>1.0</version>
+        </dependency>
         <!--web模块-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -131,7 +136,6 @@
             <artifactId>netty-all</artifactId>
             <version>4.1.42.Final</version>
         </dependency>
-
 
     </dependencies>
 

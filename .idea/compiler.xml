@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="cloud-client" />
-        <module name="cloud-common" />
         <module name="cloud-discovery" />
-        <module name="cloud-entity" />
+        <module name="cloud-common" />
         <module name="cloud-provider" />
+        <module name="cloud-entity" />
+        <module name="cloud-client" />
       </profile>
     </annotationProcessing>
   </component>
